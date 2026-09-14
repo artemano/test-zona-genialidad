@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tests de Autoconocimiento — Sistema Mente Imbatible</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --cream:#F4F1EA;
+  --card:#E9E3D6;
+  --navy:#1D3557;
+  --orange:#D35400;
+  --text:#3E3B33;
+  --muted:#8A8578;
+  --line:#C7B99A;
+  --white:#FBFAF6;
+}
+
+*{ box-sizing:border-box; }
+
+html,body{
+  margin:0; padding:0;
+  background:var(--cream);
+  color:var(--text);
+  font-family:"DM Sans","Helvetica Neue",Arial,sans-serif;
+  line-height:1.5;
+}
+
+body{
+  background-image:
+    linear-gradient(rgba(138,133,120,0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(138,133,120,0.16) 1px, transparent 1px);
+  background-size:26px 26px;
+  min-height:100vh;
+}
+
+.wrap{
+  max-width:720px;
+  margin:0 auto;
+  padding:2.4rem 1.25rem 3rem;
+}
+
+.mono{ font-family:"DM Mono",monospace; }
+.upper{ text-transform:uppercase; letter-spacing:0.08em; }
+
+.eyebrow{
+  font-family:"DM Mono",monospace;
+  font-size:0.72rem;
+  letter-spacing:0.08em;
+  color:var(--orange);
+  text-transform:uppercase;
+  margin-bottom:0.6rem;
+}
+
+h1{
+  font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:800;
+  font-size:clamp(1.7rem, 5vw, 2.4rem);
+  color:var(--navy);
+  margin:0 0 0.5rem 0;
+  line-height:1.1;
+}
+
+.subtitle{
+  color:var(--text);
+  max-width:46ch;
+  margin:0 0 1.5rem 0;
+}
+
+.rule{ height:2px; background:var(--orange); width:2.6rem; margin:0 0 1.75rem 0; }
+
+.tests{
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+
+.test-card{
+  display:block;
+  background:var(--card);
+  border-bottom:3px solid var(--orange);
+  padding:1.1rem 1.2rem;
+  text-decoration:none;
+  color:inherit;
+  transition:transform 0.12s ease;
+}
+
+.test-card:hover{ transform:translateY(-2px); }
+
+.test-card .lbl{
+  font-family:"DM Mono",monospace;
+  font-size:0.7rem;
+  letter-spacing:0.06em;
+  color:var(--orange);
+  text-transform:uppercase;
+  margin-bottom:0.3rem;
+}
+
+.test-card .name{
+  font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:700;
+  font-size:1.15rem;
+  color:var(--navy);
+  margin-bottom:0.35rem;
+}
+
+.test-card .desc{
+  font-size:0.92rem;
+  color:var(--text);
+}
+
+.test-card .go{
+  display:inline-block;
+  margin-top:0.6rem;
+  font-family:"DM Mono",monospace;
+  font-size:0.78rem;
+  letter-spacing:0.05em;
+  color:var(--navy);
+}
+
+.test-card .go::after{ content:" →"; color:var(--orange); }
+
+.howto{
+  background:var(--white);
+  border:1px dashed var(--line);
+  padding:0.9rem 1.1rem;
+  margin-top:2rem;
+  font-size:0.85rem;
+}
+
+.howto .lbl{
+  font-family:"DM Mono",monospace;
+  font-size:0.68rem;
+  letter-spacing:0.07em;
+  color:var(--orange);
+  text-transform:uppercase;
+  margin-bottom:0.4rem;
+}
+
+.howto p{ margin:0; color:var(--text); }
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="eyebrow">Sistema Mente Imbatible</div>
+  <h1>Tests de Autoconocimiento</h1>
+  <p class="subtitle">Herramientas rápidas para entender mejor cómo piensas y dónde rinde mejor tu cerebro. Sin registro, sin backend — el resultado se calcula en tu propio navegador.</p>
+  <div class="rule"></div>
+
+  <div class="tests">
+    <a class="test-card" href="tests/estilo-pensamiento/index.html">
+      <div class="lbl">Bono 3 · ~4 minutos</div>
+      <div class="name">Test de Zonas de Genialidad</div>
+      <div class="desc">Descubre en qué tareas tu cerebro rinde mejor — y en cuáles no vas a ser competitivo por más que te esfuerces.</div>
+      <span class="go">Empezar</span>
+    </a>
+  </div>
+
+  <div class="howto">
+    <div class="lbl">Nota de estado</div>
+    <p>Esta pantalla es el "hub": hoy presenta un solo test y está pensada para sumar más adelante sin reconstruirse. Cada test vive en su propia carpeta bajo <code>tests/</code>, autocontenido.</p>
+  </div>
+</div>
+
+</body>
+</html>

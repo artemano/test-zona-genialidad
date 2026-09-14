@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test de Zonas de Genialidad — Sistema Mente Imbatible</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --cream:#F4F1EA;
+  --card:#E9E3D6;
+  --navy:#1D3557;
+  --orange:#D35400;
+  --text:#3E3B33;
+  --muted:#8A8578;
+  --line:#C7B99A;
+  --white:#FBFAF6;
+}
+
+*{ box-sizing:border-box; }
+
+html,body{
+  margin:0; padding:0;
+  background:var(--cream);
+  color:var(--text);
+  font-family:"DM Sans","Helvetica Neue",Arial,sans-serif;
+  line-height:1.5;
+}
+
+body{
+  background-image:
+    linear-gradient(rgba(138,133,120,0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(138,133,120,0.16) 1px, transparent 1px);
+  background-size:26px 26px;
+  min-height:100vh;
+}
+
+.wrap{
+  max-width:640px;
+  margin:0 auto;
+  padding:2rem 1.25rem 3rem;
+}
+
+.mono{ font-family:"DM Mono",monospace; }
+.upper{ text-transform:uppercase; letter-spacing:0.08em; }
+
+.eyebrow{
+  font-family:"DM Mono",monospace;
+  font-size:0.7rem;
+  letter-spacing:0.08em;
+  color:var(--orange);
+  text-transform:uppercase;
+  margin-bottom:0.6rem;
+}
+
+h1{
+  font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:800;
+  font-size:clamp(1.6rem, 6vw, 2.2rem);
+  color:var(--navy);
+  margin:0 0 0.5rem 0;
+  line-height:1.1;
+}
+
+h2{
+  font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:700;
+  font-size:1.3rem;
+  color:var(--navy);
+  margin:0 0 0.4rem 0;
+}
+
+.subtitle{ color:var(--text); margin:0 0 1.5rem 0; }
+.rule{ height:2px; background:var(--orange); width:2.4rem; margin:0 0 1.5rem 0; }
+
+/* screens */
+.screen{ display:none; }
+.screen.active{ display:block; }
+
+/* portada */
+.meta{
+  font-family:"DM Mono",monospace;
+  font-size:0.78rem;
+  letter-spacing:0.04em;
+  color:var(--muted);
+  margin-bottom:1.5rem;
+}
+
+.disclaimer{
+  background:var(--white);
+  border:1px dashed var(--line);
+  padding:0.9rem 1.1rem;
+  margin-bottom:1.75rem;
+  font-size:0.85rem;
+}
+.disclaimer .lbl{
+  font-family:"DM Mono",monospace;
+  font-size:0.68rem;
+  letter-spacing:0.07em;
+  color:var(--orange);
+  text-transform:uppercase;
+  margin-bottom:0.4rem;
+}
+.disclaimer p{ margin:0; color:var(--text); }
+
+button.primary{
+  display:inline-block;
+  background:var(--navy);
+  color:#fff;
+  border:none;
+  font-family:"DM Sans",sans-serif;
+  font-weight:700;
+  font-size:1rem;
+  padding:0.85rem 1.6rem;
+  cursor:pointer;
+}
+button.primary:hover{ background:#152944; }
+
+button.secondary{
+  display:inline-block;
+  background:transparent;
+  color:var(--navy);
+  border:1px solid var(--line);
+  font-family:"DM Sans",sans-serif;
+  font-weight:500;
+  font-size:0.9rem;
+  padding:0.6rem 1.1rem;
+  cursor:pointer;
+}
+
+/* cuestionario */
+.progress-track{
+  height:4px;
+  background:var(--line);
+  margin-bottom:0.5rem;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:var(--orange);
+  transition:width 0.2s ease;
+}
+.progress-label{
+  font-family:"DM Mono",monospace;
+  font-size:0.72rem;
+  letter-spacing:0.05em;
+  color:var(--muted);
+  margin-bottom:2rem;
+}
+
+.question-card{
+  background:var(--card);
+  border-bottom:3px solid var(--orange);
+  padding:1.5rem 1.4rem;
+  margin-bottom:1.5rem;
+}
+.question-card .q-text{
+  font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:700;
+  font-size:1.1rem;
+  color:var(--navy);
+  margin:0;
+}
+
+.options{
+  display:grid;
+  gap:0.6rem;
+}
+.option{
+  background:var(--white);
+  border:1px solid var(--line);
+  padding:0.75rem 1rem;
+  font-family:"DM Sans",sans-serif;
+  font-size:0.95rem;
+  color:var(--text);
+  text-align:left;
+  cursor:pointer;
+}
+.option:hover{ border-color:var(--orange); }
+.option.selected{ border-color:var(--orange); background:#FBEEE4; }
+
+/* transición */
+.transition-screen{ text-align:center; padding:3rem 0; }
+.transition-screen .msg{
+  font-family:"DM Mono",monospace;
+  font-size:0.9rem;
+  letter-spacing:0.04em;
+  color:var(--navy);
+}
+
+/* resultado */
+.wheel-placeholder{
+  width:220px; height:220px;
+  margin:0 auto 1.5rem;
+  border-radius:50%;
+  border:2px solid var(--line);
+  display:flex; align-items:center; justify-content:center;
+  font-family:"DM Mono",monospace;
+  font-size:0.75rem;
+  color:var(--muted);
+  text-align:center;
+  padding:1rem;
+}
+
+.result-block{ margin-bottom:1.5rem; }
+.result-block .lbl{
+  font-family:"DM Mono",monospace;
+  font-size:0.7rem;
+  letter-spacing:0.06em;
+  color:var(--orange);
+  text-transform:uppercase;
+  margin-bottom:0.4rem;
+}
+.result-block p{ margin:0; color:var(--text); }
+
+.navybox{
+  background:var(--navy);
+  color:#EFEDE6;
+  padding:1rem 1.2rem;
+  margin-bottom:1.5rem;
+}
+.navybox .lbl{
+  font-family:"DM Mono",monospace;
+  font-size:0.68rem;
+  letter-spacing:0.07em;
+  color:#C9D3E0;
+  text-transform:uppercase;
+  margin-bottom:0.4rem;
+}
+.navybox p{ margin:0; }
+
+footer.disclaimer-footer{
+  font-size:0.8rem;
+  color:var(--muted);
+  border-top:1px solid var(--line);
+  padding-top:1rem;
+  margin-top:2rem;
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ============ PANTALLA 1 — PORTADA ============ -->
+  <section class="screen active" id="screen-portada">
+    <div class="eyebrow">Sistema Mente Imbatible — Bono 3</div>
+    <h1>Test de Zonas de <span style="color:var(--orange)">Genialidad</span></h1>
+    <p class="subtitle">Descubre en qué tareas tu cerebro rinde mejor — y en cuáles no vas a ser competitivo por más que te esfuerces.</p>
+    <div class="rule"></div>
+    <div class="meta mono upper">Toma unos 4 minutos</div>
+
+    <div class="disclaimer">
+      <div class="lbl">Antes de empezar</div>
+      <p>Esta es una herramienta de autoconocimiento inspirada en modelos de estilos cognitivos — no es un test psicométrico validado ni un diagnóstico clínico. Tómalo como un mapa, no como una sentencia.</p>
+    </div>
+
+    <button class="primary" id="btn-empezar">Empezar</button>
+  </section>
+
+  <!-- ============ PANTALLA 2 — CUESTIONARIO ============ -->
+  <section class="screen" id="screen-cuestionario">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-label mono" id="progress-label">Pregunta 1 de 32</div>
+
+    <!--
+      TODO (contenido pendiente): cargar aquí las 32 afirmaciones mezcladas
+      (ver diseno-contenido-test-zonas-genialidad.md, Sección 1) y la lógica
+      de puntuación por zona (Sección 2). Esta tarjeta es solo un placeholder
+      estructural para validar el flujo visual.
+    -->
+    <div class="question-card">
+      <p class="q-text" id="question-text">[Placeholder] Aquí va cada una de las 32 afirmaciones, una a la vez.</p>
+    </div>
+
+    <div class="options">
+      <button class="option" data-value="0">No me describe</button>
+      <button class="option" data-value="1">Un poco</button>
+      <button class="option" data-value="2">Bastante</button>
+      <button class="option" data-value="3">Totalmente</button>
+    </div>
+  </section>
+
+  <!-- ============ PANTALLA 3 — TRANSICIÓN ============ -->
+  <section class="screen" id="screen-transicion">
+    <div class="transition-screen">
+      <p class="msg">Calculando tu mapa cerebral...</p>
+    </div>
+  </section>
+
+  <!-- ============ PANTALLA 4 — RESULTADO ============ -->
+  <section class="screen" id="screen-resultado">
+    <div class="eyebrow">Tu resultado</div>
+    <h1>Tu Zona de Genialidad: <span style="color:var(--orange)" id="result-zone">[placeholder]</span></h1>
+    <div class="rule"></div>
+
+    <!--
+      TODO (contenido pendiente): reemplazar los bloques de abajo con el
+      ensamblaje real según diseno-contenido-test-zonas-genialidad.md,
+      Sección 3 (bloques por zona) y Sección 4 (plantilla de ensamblaje).
+    -->
+    <div class="wheel-placeholder">Rueda de 4 cuadrantes (Procesos / Grupo / Visión / Resultados) — pendiente de construir</div>
+
+    <div class="result-block">
+      <div class="lbl">Esto te va a fluir</div>
+      <p id="result-fluye">[placeholder — lista de actividades/roles afines a la zona dominante]</p>
+    </div>
+
+    <div class="result-block">
+      <div class="lbl">Esto te va a costar más esfuerzo</div>
+      <p id="result-cuesta">[placeholder — lista de actividades/roles de la zona más baja]</p>
+    </div>
+
+    <div class="navybox">
+      <div class="lbl">Niebla mental vs. sobreesfuerzo cognitivo</div>
+      <p id="result-niebla">[placeholder — texto de la zona más baja del usuario]</p>
+    </div>
+
+    <div class="result-block">
+      <div class="lbl">Si quieres ir más a fondo</div>
+      <p id="result-cta">Este test te da un mapa rápido de por dónde vas. Si quieres ir más a fondo — entender con precisión en qué se te está yendo la energía día a día y armar una estrategia hecha a tu medida, no genérica — eso es exactamente el tipo de trabajo que hacemos en una sesión 1:1. [Agenda aquí / escríbeme].</p>
+    </div>
+
+    <footer class="disclaimer-footer">
+      Recuerda: esto es un mapa de tendencias, no una etiqueta fija. Todas las zonas son entrenables — algunas simplemente te van a costar más energía que otras, y eso también es información útil.
+    </footer>
+
+    <p style="margin-top:1.5rem;">
+      <button class="secondary" id="btn-reiniciar">Volver a hacer el test</button>
+    </p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  var screens = {
+    portada: document.getElementById('screen-portada'),
+    cuestionario: document.getElementById('screen-cuestionario'),
+    transicion: document.getElementById('screen-transicion'),
+    resultado: document.getElementById('screen-resultado')
+  };
+
+  function showScreen(name){
+    Object.keys(screens).forEach(function(key){
+      screens[key].classList.toggle('active', key === name);
+    });
+  }
+
+  // Navegación de demostración del flujo — sin lógica de puntuación real todavía.
+  document.getElementById('btn-empezar').addEventListener('click', function(){
+    showScreen('cuestionario');
+  });
+
+  document.querySelectorAll('.option').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      // TODO: acumular respuesta real por zona en vez de saltar directo a transición.
+      showScreen('transicion');
+      setTimeout(function(){ showScreen('resultado'); }, 1200);
+    });
+  });
+
+  document.getElementById('btn-reiniciar').addEventListener('click', function(){
+    showScreen('portada');
+  });
+})();
+</script>
+
+</body>
+</html>
