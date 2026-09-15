@@ -178,9 +178,9 @@ autoconciencia — ver nota abajo]
 
 ## 5. Copy del CTA de coaching 1:1 (cierre del resultado)
 
-Versión sugerida, tono sutil, sin venta dura (mecánica exacta de enlace/WhatsApp/calendario pendiente de definir con Rafa):
+Versión sugerida, tono sutil, sin venta dura. Mecánica confirmada: enlace directo a Google Calendar (`https://calendar.app.google/eGo7DDmGYsSyC9V69`).
 
-> Este test te da un mapa rápido de por dónde vas. Si quieres ir más a fondo — entender con precisión en qué se te está yendo la energía día a día y armar una estrategia hecha a tu medida, no genérica — eso es exactamente el tipo de trabajo que hacemos en una sesión 1:1. [Agenda aquí / escríbeme].
+> Este test te da un mapa rápido de por dónde vas. Si quieres ir más a fondo — entender con precisión en qué se te está yendo la energía día a día y armar una estrategia hecha a tu medida, no genérica — eso es exactamente el tipo de trabajo que hacemos en una sesión 1:1. [Agenda aquí](https://calendar.app.google/eGo7DDmGYsSyC9V69).
 
 ---
 
