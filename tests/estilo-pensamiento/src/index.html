@@ -631,16 +631,17 @@ footer.disclaimer-footer{
     svg.appendChild(svgEl('line', { x1:cx - maxR, y1:cy, x2:cx + maxR, y2:cy, stroke:'var(--line)', 'stroke-width':1 }));
     svg.appendChild(svgEl('line', { x1:cx, y1:cy - maxR, x2:cx, y2:cy + maxR, stroke:'var(--line)', 'stroke-width':1 }));
 
-    /* cuadrantes — estilo de un solo tono, opacidad 0.52 */
+    /* cuadrantes — color por hemisferio (izq: Procesos/Resultados en --navy, der: Grupo/Visión en --orange), opacidad 0.52 */
     ZONE_ORDER.forEach(function(key){
       var zone = ZONES[key];
       var score = scores[key];
       var r = (score / 24) * maxR;
+      var hue = zone.hemisphere === 'izq' ? 'var(--navy)' : 'var(--orange)';
       svg.appendChild(svgEl('path', {
         d: sectorPath(cx, cy, r, zone.angleStart, zone.angleEnd),
-        fill: 'var(--orange)',
+        fill: hue,
         'fill-opacity': 0.52,
-        stroke: 'var(--orange)',
+        stroke: hue,
         'stroke-width': 1.5
       }));
     });
