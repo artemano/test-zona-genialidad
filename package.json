@@ -1,0 +1,12 @@
+{
+  "name": "test-zonas-genialidad",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Build tooling for el Test de Zonas de Genialidad — ofusca el JS antes de publicar.",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^4.1.1"
+  }
+}

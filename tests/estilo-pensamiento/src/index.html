@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test de Zonas de Genialidad — Sistema Mente Imbatible</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --cream:#F4F1EA;
+  --card:#E9E3D6;
+  --navy:#1D3557;
+  --orange:#D35400;
+  --text:#3E3B33;
+  --muted:#8A8578;
+  --line:#C7B99A;
+  --white:#FBFAF6;
+}
+
+*{ box-sizing:border-box; }
+
+html,body{
+  margin:0; padding:0;
+  background:var(--cream);
+  color:var(--text);
+  font-family:"DM Sans","Helvetica Neue",Arial,sans-serif;
+  line-height:1.5;
+}
+
+body{
+  background-image:
+    linear-gradient(rgba(138,133,120,0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(138,133,120,0.16) 1px, transparent 1px);
+  background-size:26px 26px;
+  min-height:100vh;
+}
+
+.wrap{
+  max-width:640px;
+  margin:0 auto;
+  padding:2rem 1.25rem 3rem;
+}
+
+.mono{ font-family:"DM Mono",monospace; }
+.upper{ text-transform:uppercase; letter-spacing:0.08em; }
+
+.eyebrow{
+  font-family:"DM Mono",monospace;
+  font-size:0.7rem;
+  letter-spacing:0.08em;
+  color:var(--orange);
+  text-transform:uppercase;
+  margin-bottom:0.6rem;
+}
+
+h1{
+  font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:800;
+  font-size:clamp(1.6rem, 6vw, 2.2rem);
+  color:var(--navy);
+  margin:0 0 0.5rem 0;
+  line-height:1.1;
+}
+
+h2{
+  font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:700;
+  font-size:1.3rem;
+  color:var(--navy);
+  margin:0 0 0.4rem 0;
+}
+
+.subtitle{ color:var(--text); margin:0 0 1.5rem 0; }
+.rule{ height:2px; background:var(--orange); width:2.4rem; margin:0 0 1.5rem 0; }
+
+/* screens */
+.screen{ display:none; }
+.screen.active{ display:block; }
+
+/* portada */
+.meta{
+  font-family:"DM Mono",monospace;
+  font-size:0.78rem;
+  letter-spacing:0.04em;
+  color:var(--muted);
+  margin-bottom:1.5rem;
+}
+
+.disclaimer{
+  background:var(--white);
+  border:1px dashed var(--line);
+  padding:0.9rem 1.1rem;
+  margin-bottom:1.75rem;
+  font-size:0.85rem;
+}
+.disclaimer .lbl{
+  font-family:"DM Mono",monospace;
+  font-size:0.68rem;
+  letter-spacing:0.07em;
+  color:var(--orange);
+  text-transform:uppercase;
+  margin-bottom:0.4rem;
+}
+.disclaimer p{ margin:0; color:var(--text); }
+
+button.primary{
+  display:inline-block;
+  background:var(--navy);
+  color:#fff;
+  border:none;
+  font-family:"DM Sans",sans-serif;
+  font-weight:700;
+  font-size:1rem;
+  padding:0.85rem 1.6rem;
+  cursor:pointer;
+}
+button.primary:hover{ background:#152944; }
+
+button.secondary{
+  display:inline-block;
+  background:transparent;
+  color:var(--navy);
+  border:1px solid var(--line);
+  font-family:"DM Sans",sans-serif;
+  font-weight:500;
+  font-size:0.9rem;
+  padding:0.6rem 1.1rem;
+  cursor:pointer;
+}
+
+/* cuestionario */
+.progress-track{
+  height:4px;
+  background:var(--line);
+  margin-bottom:0.5rem;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:var(--orange);
+  transition:width 0.2s ease;
+}
+.progress-label{
+  font-family:"DM Mono",monospace;
+  font-size:0.72rem;
+  letter-spacing:0.05em;
+  color:var(--muted);
+  margin-bottom:2rem;
+}
+
+.question-card{
+  background:var(--card);
+  border-bottom:3px solid var(--orange);
+  padding:1.5rem 1.4rem;
+  margin-bottom:1.5rem;
+}
+.question-card .q-text{
+  font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:700;
+  font-size:1.1rem;
+  color:var(--navy);
+  margin:0;
+}
+
+.options{
+  display:grid;
+  gap:0.6rem;
+}
+.option{
+  background:var(--white);
+  border:1px solid var(--line);
+  padding:0.75rem 1rem;
+  font-family:"DM Sans",sans-serif;
+  font-size:0.95rem;
+  color:var(--text);
+  text-align:left;
+  cursor:pointer;
+}
+.option:hover{ border-color:var(--orange); }
+.option.selected{ border-color:var(--orange); background:#FBEEE4; }
+
+/* transición */
+.transition-screen{ text-align:center; padding:3rem 0; }
+.transition-screen .msg{
+  font-family:"DM Mono",monospace;
+  font-size:0.9rem;
+  letter-spacing:0.04em;
+  color:var(--navy);
+}
+
+/* resultado */
+.intro-text{ margin:0 0 1.5rem 0; color:var(--text); }
+
+.wheel-box{
+  background:var(--card);
+  border-bottom:3px solid var(--orange);
+  padding:1.4rem;
+  margin-bottom:1.5rem;
+  display:flex;
+  justify-content:center;
+}
+.wheel-box svg{ width:100%; max-width:280px; height:auto; display:block; }
+
+.result-block{ margin-bottom:1.5rem; }
+.result-block .lbl{
+  font-family:"DM Mono",monospace;
+  font-size:0.7rem;
+  letter-spacing:0.06em;
+  color:var(--orange);
+  text-transform:uppercase;
+  margin-bottom:0.4rem;
+}
+.result-block p{ margin:0; color:var(--text); }
+.result-block ul{ margin:0; padding-left:1.1rem; color:var(--text); }
+.result-block ul li{ margin-bottom:0.4rem; }
+.result-block ul li:last-child{ margin-bottom:0; }
+
+.navybox{
+  background:var(--navy);
+  color:#EFEDE6;
+  padding:1rem 1.2rem;
+  margin-bottom:1.5rem;
+}
+.navybox .lbl{
+  font-family:"DM Mono",monospace;
+  font-size:0.68rem;
+  letter-spacing:0.07em;
+  color:#C9D3E0;
+  text-transform:uppercase;
+  margin-bottom:0.4rem;
+}
+.navybox p{ margin:0; }
+
+footer.disclaimer-footer{
+  font-size:0.8rem;
+  color:var(--muted);
+  border-top:1px solid var(--line);
+  padding-top:1rem;
+  margin-top:2rem;
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ============ PANTALLA 1 — PORTADA ============ -->
+  <section class="screen active" id="screen-portada">
+    <div class="eyebrow">Sistema Mente Imbatible — Bono 3</div>
+    <h1>Test de Zonas de <span style="color:var(--orange)">Genialidad</span></h1>
+    <p class="subtitle">Descubre en qué tareas tu cerebro rinde mejor — y en cuáles no vas a ser competitivo por más que te esfuerces.</p>
+    <div class="rule"></div>
+    <div class="meta mono upper">Toma unos 4 minutos</div>
+
+    <div class="disclaimer">
+      <div class="lbl">Antes de empezar</div>
+      <p>Esta es una herramienta de autoconocimiento inspirada en modelos de estilos cognitivos — no es un test psicométrico validado ni un diagnóstico clínico. Tómalo como un mapa, no como una sentencia.</p>
+    </div>
+
+    <button class="primary" id="btn-empezar">Empezar</button>
+  </section>
+
+  <!-- ============ PANTALLA 2 — CUESTIONARIO ============ -->
+  <section class="screen" id="screen-cuestionario">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-label mono" id="progress-label">Pregunta 1 de 32</div>
+
+    <div class="question-card">
+      <p class="q-text" id="question-text"></p>
+    </div>
+
+    <div class="options" id="options">
+      <button class="option" data-value="0">No me describe</button>
+      <button class="option" data-value="1">Un poco</button>
+      <button class="option" data-value="2">Bastante</button>
+      <button class="option" data-value="3">Totalmente</button>
+    </div>
+  </section>
+
+  <!-- ============ PANTALLA 3 — TRANSICIÓN ============ -->
+  <section class="screen" id="screen-transicion">
+    <div class="transition-screen">
+      <p class="msg">Calculando tu mapa cerebral...</p>
+    </div>
+  </section>
+
+  <!-- ============ PANTALLA 4 — RESULTADO ============ -->
+  <section class="screen" id="screen-resultado">
+    <div class="eyebrow">Tu resultado</div>
+    <h1>Tu Zona de Genialidad: <span style="color:var(--orange)" id="result-zone"></span></h1>
+    <div class="rule"></div>
+
+    <p class="intro-text" id="result-intro"></p>
+
+    <div class="wheel-box">
+      <svg id="result-wheel" viewBox="0 0 400 400"></svg>
+    </div>
+
+    <div class="result-block">
+      <div class="lbl" id="lbl-fluye">Esto te va a fluir</div>
+      <div id="result-fluye"></div>
+    </div>
+
+    <div class="result-block">
+      <div class="lbl" id="lbl-cuesta">Esto te va a costar más esfuerzo</div>
+      <div id="result-cuesta"></div>
+    </div>
+
+    <div class="navybox" id="niebla-block">
+      <div class="lbl">Niebla mental vs. sobreesfuerzo cognitivo</div>
+      <p id="result-niebla"></p>
+    </div>
+
+    <div class="result-block">
+      <div class="lbl">Si quieres ir más a fondo</div>
+      <p id="result-cta">Este test te da un mapa rápido de por dónde vas. Si quieres ir más a fondo — entender con precisión en qué se te está yendo la energía día a día y armar una estrategia hecha a tu medida, no genérica — eso es exactamente el tipo de trabajo que hacemos en una sesión 1:1. <a href="https://calendar.app.google/eGo7DDmGYsSyC9V69" target="_blank" rel="noopener" style="color:var(--orange); font-weight:700;">Agenda aquí</a>.</p>
+    </div>
+
+    <footer class="disclaimer-footer">
+      Recuerda: esto es un mapa de tendencias, no una etiqueta fija. Todas las zonas son entrenables — algunas simplemente te van a costar más energía que otras, y eso también es información útil.
+    </footer>
+
+    <p style="margin-top:1.5rem;">
+      <button class="secondary" id="btn-reiniciar">Volver a hacer el test</button>
+    </p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  /* ---------- datos de zona ---------- */
+
+  var ZONES = {
+    procesos:   { label:'Procesos',   angleStart:90,  angleEnd:180, hemisphere:'izq' },
+    grupo:      { label:'Grupo',      angleStart:0,   angleEnd:90,  hemisphere:'der' },
+    vision:     { label:'Visión',     angleStart:270, angleEnd:360, hemisphere:'der' },
+    resultados: { label:'Resultados', angleStart:180, angleEnd:270, hemisphere:'izq' }
+  };
+  var ZONE_ORDER = ['procesos', 'grupo', 'vision', 'resultados'];
+
+  var BANDS = [
+    { max:6,  key:'evitas',    label:'Zona que evitas' },
+    { max:14, key:'apoyo',     label:'Zona de apoyo' },
+    { max:20, key:'natural',   label:'Zona natural' },
+    { max:24, key:'identidad', label:'Zona de identidad' }
+  ];
+  function bandFor(score){
+    for (var i = 0; i < BANDS.length; i++){ if (score <= BANDS[i].max) return BANDS[i]; }
+    return BANDS[BANDS.length - 1];
+  }
+  function isHighBand(score){
+    var k = bandFor(score).key;
+    return k === 'natural' || k === 'identidad';
+  }
+
+  /* 32 afirmaciones (8 por zona), mezcladas — diseno-contenido-test-zonas-genialidad.md, Sección 1 */
+  var QUESTIONS = [
+    { zone:'procesos',   text:'Me siento más tranquilo cuando tengo un método claro para hacer las cosas, paso a paso.' },
+    { zone:'grupo',      text:'Antes de decidir algo importante, me pregunto cómo se va a sentir la gente involucrada.' },
+    { zone:'vision',     text:'Se me ocurren ideas nuevas con facilidad, aunque no siempre sepa cómo ejecutarlas.' },
+    { zone:'resultados', text:'Cuando algo no funciona, mi primer instinto es analizar los datos, no las emociones detrás.' },
+    { zone:'grupo',      text:'Se me hace fácil notar cuando alguien está incómodo o tenso, aunque no lo diga.' },
+    { zone:'procesos',   text:'Si algo no tiene una instrucción clara, prefiero pedirla antes que improvisar sobre la marcha.' },
+    { zone:'resultados', text:'Prefiero tener la última palabra en una decisión importante a que la tome otra persona por mí.' },
+    { zone:'vision',     text:'Me aburro rápido con tareas repetitivas o rutinarias, sin importar qué tan bien las haga.' },
+    { zone:'procesos',   text:'Me doy cuenta rápido cuando algo está desordenado o fuera de lugar, y me incomoda dejarlo así.' },
+    { zone:'vision',     text:'Pienso mejor en imágenes o metáforas que en pasos numerados.' },
+    { zone:'grupo',      text:'Disfruto genuinamente escuchar lo que le pasa a los demás, no solo por cortesía.' },
+    { zone:'resultados', text:'Mido si algo valió la pena por el resultado concreto que dio, más que por cómo se sintió el proceso.' },
+    { zone:'vision',     text:'Prefiero tener varias cosas abiertas al mismo tiempo que enfocarme en una sola de principio a fin.' },
+    { zone:'procesos',   text:'Disfruto terminar tareas repetitivas bien hechas más que empezar algo completamente nuevo.' },
+    { zone:'resultados', text:'Disfruto debatir y que me lleven la contraria, si el argumento es bueno.' },
+    { zone:'grupo',      text:'Prefiero un ambiente de trabajo armonioso, aunque eso signifique evitar un conflicto necesario.' },
+    { zone:'resultados', text:'Se me da bien detectar la falla técnica o el error de lógica que otros pasan por alto.' },
+    { zone:'procesos',   text:'Cumplir con los plazos y los detalles acordados me importa más que improvisar sobre la marcha.' },
+    { zone:'vision',     text:'Confío en mi intuición para resolver problemas, incluso cuando no puedo explicar del todo por qué.' },
+    { zone:'grupo',      text:'Me nace motivar y animar a otros cuando los veo desanimados.' },
+    { zone:'procesos',   text:'Me cuesta rendir bien cuando las reglas del juego cambian todo el tiempo.' },
+    { zone:'resultados', text:'Prefiero trabajos donde pueda tomar decisiones rápidas basadas en números claros.' },
+    { zone:'vision',     text:'Algunas de mis mejores ideas me llegan cuando no estoy "trabajando" en nada en particular.' },
+    { zone:'grupo',      text:'Las conversaciones tensas o los conflictos abiertos me cuestan más energía que a la mayoría.' },
+    { zone:'procesos',   text:'Prefiero revisar la letra pequeña antes de lanzarme a hacer algo.' },
+    { zone:'vision',     text:'Me cuesta seguir un procedimiento exactamente como está escrito — siempre le veo una forma mejor.' },
+    { zone:'grupo',      text:'Mido el éxito de algo también por cómo se sintió la gente en el proceso, no solo por el resultado.' },
+    { zone:'resultados', text:'Me interesa más ser eficaz que agradar si tengo que elegir entre las dos cosas.' },
+    { zone:'procesos',   text:'Cuando algo funciona bien, prefiero repetir la fórmula antes que reinventarla.' },
+    { zone:'grupo',      text:'Conecto con la música, el ritmo o el ambiente de un grupo de una forma que a otros no les pasa tanto.' },
+    { zone:'vision',     text:'Tengo un sentido del humor un poco distinto al del resto, que no todos entienden igual.' },
+    { zone:'resultados', text:'Delegar y dar instrucciones claras se me da más natural que seguir las de alguien más.' }
+  ];
+
+  /* paquetes de zona — diseno-contenido-test-zonas-genialidad.md, Sección 3 */
+  var ZONE_PACKAGES = {
+    procesos: {
+      fortaleza: 'Tu cerebro rinde con más eficiencia cuando el terreno es claro: reglas definidas, pasos ordenados, un sistema que se puede repetir sin reinventarlo cada vez.',
+      fluye: 'Organizar información y procesos; mantener el control de calidad y los detalles; cumplir cronogramas y compromisos con precisión; construir y sostener rutinas (propias o de un equipo); trabajar con datos, documentos o sistemas que necesitan orden.',
+      cuesta: 'Ambientes sin reglas claras o que cambian todo el tiempo; improvisar una solución sin un procedimiento de referencia; tomar decisiones rápidas con información incompleta; arrancar algo completamente nuevo sin un punto de partida conocido.',
+      niebla: 'Si tu zona más baja es Procesos, cuidado con confundir dos cosas. La niebla mental que resuelve el sistema es no poder concentrarte porque tu mente está saturada. Pero si te ves obligado a ser ultra-organizado, seguir procedimientos rígidos o manejar el detalle fino durante mucho tiempo, lo que sientes después no es niebla — es el cansancio de tu cerebro operando fuera de su modo natural. Sostenido en el tiempo, ese esfuerzo "invisible" es un camino directo al agotamiento, aunque en el momento se sienta solo como "estrés normal de trabajo detallista".'
+    },
+    grupo: {
+      fortaleza: 'Tu cerebro rinde con más eficiencia cuando hay personas de por medio: leer el ambiente, conectar genuinamente, sostener la moral de un equipo.',
+      fluye: 'Mentoría, acompañamiento o desarrollo de personas; resolver tensiones de equipo antes de que escalen; comunicar y motivar; roles donde el vínculo humano es parte del trabajo, no un extra; detectar cómo está la gente antes de que lo digan en voz alta.',
+      cuesta: 'Decisiones frías basadas solo en números, sin espacio para el factor humano; conflicto directo y sostenido; trabajar aislado durante periodos largos; dar noticias duras sin poder suavizar el mensaje.',
+      niebla: 'Si te ves obligado a sostener conversaciones tensas, mediar conflictos o estar "disponible emocionalmente" para otros por periodos largos sin que sea tu forma natural de operar, el agotamiento que sientes después no es la niebla mental típica — es tu cerebro gastando el doble de energía en regular algo que a otros les sale con menos esfuerzo. Confundir esto con "simplemente estrés" te hace más propenso a un desgaste relacional sin entender bien por qué.'
+    },
+    vision: {
+      fortaleza: 'Tu cerebro rinde con más eficiencia cuando puede imaginar, conectar ideas sueltas y ver el panorama completo antes que el detalle.',
+      fluye: 'Generar ideas nuevas o soluciones poco obvias; ver conexiones que otros no ven; adaptarte rápido cuando todo cambia; proyectos abiertos donde no hay un solo camino correcto; comunicar con metáforas o imágenes que hacen clic.',
+      cuesta: 'Tareas repetitivas sin variación; seguir un procedimiento exactamente como está escrito sin poder ajustarlo; sostener el enfoque en un solo tema por mucho tiempo; reglas rígidas que no dejan espacio para tu forma de pensar.',
+      niebla: 'Si te ves forzado a hacer trabajo repetitivo, seguir instrucciones al pie de la letra o sostener el mismo enfoque sin variación por mucho tiempo, la sensación de "cerebro apagado" que viene después no es solo niebla mental — es tu cerebro resistiéndose activamente a operar fuera de su modo natural. Ese desgaste se acumula más rápido de lo que parece, porque en el momento no se siente como "trabajo duro", sino como aburrimiento.'
+    },
+    resultados: {
+      fortaleza: 'Tu cerebro rinde con más eficiencia cuando hay un problema que resolver, una decisión que tomar y un resultado medible al final.',
+      fluye: 'Análisis y diagnóstico de problemas técnicos o financieros; tomar decisiones rápidas con datos; liderar y asumir la responsabilidad de un resultado; debatir y defender una postura con argumentos; optimizar procesos para que rindan más con menos.',
+      cuesta: 'Decisiones que dependen solo del clima emocional del equipo; procesos lentos sin métricas claras de avance; suavizar un mensaje directo por sensibilidad ajena; ceder el control de una decisión a alguien más sin poder cuestionarla.',
+      niebla: 'Si te ves obligado a sostener el enfoque analítico, tomar decisiones difíciles o liderar bajo presión por periodos largos sin que sea tu forma natural de operar, lo que sientes no es solo el "cerebro frito" de la niebla mental cotidiana — es el costo de operar en un modo que te exige mucho más esfuerzo consciente que a otros. Ignorar esa diferencia es una forma común de terminar agotado sin entender por qué, si "en teoría" no estabas haciendo nada tan distinto a lo de siempre.'
+    }
+  };
+
+  function autoconcienciaLine(zoneLabel){
+    return 'Tu puntaje en ' + zoneLabel + ' es tan alto que probablemente no solo la prefieres — la consideras la forma "correcta" de pensar. Vale la pena notar cuando das por hecho que los demás deberían resolver las cosas igual que tú: no siempre es así, y no tiene por qué serlo.';
+  }
+
+  /* ---------- lógica de puntuación (quiz-scoring) ---------- */
+
+  function computeScores(answers){
+    var scores = { procesos:0, grupo:0, vision:0, resultados:0 };
+    QUESTIONS.forEach(function(q, i){
+      scores[q.zone] += (answers[i] || 0);
+    });
+    return scores;
+  }
+
+  function sortedZonesDesc(scores){
+    return ZONE_ORDER
+      .map(function(z){ return { zone:z, score:scores[z] }; })
+      .sort(function(a, b){ return b.score - a.score; });
+  }
+
+  function determineDominant(scores){
+    var sorted = sortedZonesDesc(scores);
+    var top = sorted[0], second = sorted[1];
+    if ((top.score - second.score) <= 4 && isHighBand(top.score) && isHighBand(second.score)){
+      return { type:'co', zones:[top.zone, second.zone] };
+    }
+    return { type:'single', zone: top.zone };
+  }
+
+  /* Alternativa B — empate por banda en la zona más baja */
+  function determineLowestGroup(scores){
+    var asc = sortedZonesDesc(scores).slice().reverse();
+    var min = asc[0];
+    var minBandKey = bandFor(min.score).key;
+    var group = asc.filter(function(z){
+      return bandFor(z.score).key === minBandKey && z.score <= min.score + 4;
+    });
+    return group.map(function(z){ return z.zone; });
+  }
+
+  /* Alternativa D — detección de perfil parejo (D1 / D2) */
+  function detectPerfilParejo(scores){
+    var sorted = sortedZonesDesc(scores);
+    var range = sorted[0].score - sorted[3].score;
+    var lowestGroup = determineLowestGroup(scores);
+    var triggered = lowestGroup.length >= 3 || range <= 5;
+    if (!triggered) return null;
+    var topQualifies = isHighBand(sorted[0].score);
+    return { variant: topQualifies ? 'D2' : 'D1', lowestGroup: lowestGroup };
+  }
+
+  function computeResult(answers){
+    var scores = computeScores(answers);
+    var dominantInfo = determineDominant(scores);
+    var parejo = detectPerfilParejo(scores);
+    var domZones = dominantInfo.type === 'co' ? dominantInfo.zones : [dominantInfo.zone];
+    var autoconciencia = domZones.filter(function(z){ return bandFor(scores[z]).key === 'identidad'; });
+
+    var result = { scores:scores, dominantInfo:dominantInfo, parejo:parejo, autoconciencia:autoconciencia };
+    if (!parejo){
+      result.lowestGroup = determineLowestGroup(scores);
+    }
+    return result;
+  }
+
+  /* ---------- ensamblaje del resultado (quiz-experience) ---------- */
+
+  function listHTML(items){
+    return '<ul>' + items.map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul>';
+  }
+
+  function setNieblaVisible(visible){
+    document.getElementById('niebla-block').style.display = visible ? 'block' : 'none';
+  }
+
+  function renderStandard(result){
+    var scores = result.scores;
+    var dom = result.dominantInfo;
+    var domZones = dom.type === 'co' ? dom.zones : [dom.zone];
+
+    document.getElementById('result-zone').textContent =
+      domZones.map(function(z){ return ZONES[z].label; }).join(' + ');
+
+    var introParts = domZones.map(function(z){ return ZONE_PACKAGES[z].fortaleza; });
+    result.autoconciencia.forEach(function(z){ introParts.push(autoconcienciaLine(ZONES[z].label)); });
+    document.getElementById('result-intro').textContent = introParts.join(' ');
+
+    document.getElementById('lbl-fluye').textContent = 'Esto te va a fluir';
+    document.getElementById('result-fluye').innerHTML =
+      '<p>' + domZones.map(function(z){ return ZONE_PACKAGES[z].fluye; }).join(' ') + '</p>';
+
+    document.getElementById('lbl-cuesta').textContent = 'Esto te va a costar más esfuerzo';
+    var lowZones = result.lowestGroup;
+    document.getElementById('result-cuesta').innerHTML =
+      '<p>' + lowZones.map(function(z){ return ZONE_PACKAGES[z].cuesta; }).join(' ') + '</p>';
+
+    setNieblaVisible(true);
+    document.getElementById('result-niebla').textContent =
+      lowZones.map(function(z){ return ZONE_PACKAGES[z].niebla; }).join(' ');
+  }
+
+  function renderD1(result){
+    var scores = result.scores;
+    var vals = ZONE_ORDER.map(function(z){ return scores[z]; });
+    var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals);
+
+    document.getElementById('result-zone').textContent = 'un perfil parejo';
+    document.getElementById('result-intro').textContent =
+      'Tus 4 puntajes quedaron muy cerca uno del otro (entre ' + min + ' y ' + max + ', sobre 24) — ninguno se despega con fuerza. ' +
+      'Esto no significa que el test "no funcionó" ni que te falta algo: significa que no dependes tanto de un solo modo de pensar para operar bien. ' +
+      'Te mueves entre las 4 formas con una facilidad relativa que no todos tienen — el costo es que tampoco tienes un "modo por defecto" al que vuelves cuando estás cansado.';
+
+    document.getElementById('lbl-fluye').textContent = 'Cómo tiendes a operar';
+    document.getElementById('result-fluye').innerHTML = listHTML([
+      'Te adaptas más rápido que el promedio cuando el tipo de tarea cambia a mitad de semana.',
+      'No tienes una "caja de herramientas" fija: dependiendo del día, te apoyas en la lógica, en las ideas, en el orden o en la gente, casi por igual.',
+      'Es más difícil para ti (y para otros) predecir de antemano en qué vas a rendir mejor — se define más por el contexto específico que por tu perfil de pensamiento.'
+    ]);
+
+    document.getElementById('lbl-cuesta').textContent = 'Lo que este test no te puede decir';
+    document.getElementById('result-cuesta').innerHTML =
+      '<p>Como ninguna de tus 4 zonas quedó claramente abajo, no podemos decirte con precisión en qué tipo de tarea vas a sufrir más — preferimos decírtelo directo a inventar una "zona débil" solo para completar la plantilla. ' +
+      'Si notas fatiga mental fuerte y sostenida en un tipo de trabajo específico, probablemente no viene de tu perfil de pensamiento — vale la pena rastrearla con las otras herramientas del sistema (tu Diario de Hallazgos) en vez de con este test.</p>';
+
+    setNieblaVisible(false);
+  }
+
+  function renderD2(result){
+    var scores = result.scores;
+    var dom = result.dominantInfo;
+    var domZones = dom.type === 'co' ? dom.zones : [dom.zone];
+
+    document.getElementById('result-zone').textContent =
+      domZones.map(function(z){ return ZONES[z].label; }).join(' + ');
+
+    var introParts = domZones.map(function(z){ return ZONE_PACKAGES[z].fortaleza; });
+    result.autoconciencia.forEach(function(z){ introParts.push(autoconcienciaLine(ZONES[z].label)); });
+    document.getElementById('result-intro').textContent = introParts.join(' ');
+
+    document.getElementById('lbl-fluye').textContent = 'Esto te va a fluir';
+    document.getElementById('result-fluye').innerHTML =
+      '<p>' + domZones.map(function(z){ return ZONE_PACKAGES[z].fluye; }).join(' ') + '</p>';
+
+    var restZones = ZONE_ORDER.filter(function(z){ return domZones.indexOf(z) === -1; });
+    var restScores = restZones.map(function(z){ return scores[z]; });
+    var gap = Math.max.apply(null, restScores) - Math.min.apply(null, restScores);
+
+    document.getElementById('lbl-cuesta').textContent = 'Esto te va a costar más esfuerzo';
+    document.getElementById('result-cuesta').innerHTML =
+      '<p>Tus otras ' + restZones.length + ' zonas quedaron muy parejas entre sí (a ' + gap + ' punto' + (gap === 1 ? '' : 's') + ' de diferencia) — ninguna se nota claramente más floja que las demás. ' +
+      'Eso probablemente significa que no tienes un punto ciego marcado: te vas a sentir "fuera de tu terreno" en tareas ajenas a tu zona natural, pero de forma pareja entre ellas, no con una que te cueste mucho más que las otras.</p>';
+
+    setNieblaVisible(false);
+  }
+
+  function renderResult(result){
+    if (result.parejo && result.parejo.variant === 'D1'){
+      renderD1(result);
+    } else if (result.parejo && result.parejo.variant === 'D2'){
+      renderD2(result);
+    } else {
+      renderStandard(result);
+    }
+    drawWheel(result.scores);
+  }
+
+  /* ---------- rueda de resultado (result-wheel) ---------- */
+
+  var svgNS = 'http://www.w3.org/2000/svg';
+
+  function polar(cx, cy, r, angleDeg){
+    var rad = angleDeg * Math.PI / 180;
+    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  }
+
+  function sectorPath(cx, cy, r, startAngle, endAngle){
+    if (r <= 0.001) return '';
+    var p1 = polar(cx, cy, r, startAngle);
+    var p2 = polar(cx, cy, r, endAngle);
+    return ['M', cx, cy, 'L', p1.x, p1.y, 'A', r, r, 0, 0, 1, p2.x, p2.y, 'Z'].join(' ');
+  }
+
+  function ringPath(cx, cy, r){
+    return ['M', cx - r, cy, 'A', r, r, 0, 1, 1, cx + r, cy, 'A', r, r, 0, 1, 1, cx - r, cy, 'Z'].join(' ');
+  }
+
+  function svgEl(tag, attrs){
+    var e = document.createElementNS(svgNS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+
+  function drawWheel(scores){
+    var svg = document.getElementById('result-wheel');
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    var cx = 200, cy = 200, maxR = 118;
+
+    /* anillos de referencia en los cortes reales de banda */
+    BANDS.forEach(function(b){
+      var r = (b.max / 24) * maxR;
+      svg.appendChild(svgEl('path', { d: ringPath(cx, cy, r), fill:'none', stroke:'var(--line)', 'stroke-width':1, 'stroke-dasharray':'2 3' }));
+    });
+    svg.appendChild(svgEl('path', { d: ringPath(cx, cy, maxR), fill:'none', stroke:'var(--line)', 'stroke-width':1.5 }));
+
+    svg.appendChild(svgEl('line', { x1:cx - maxR, y1:cy, x2:cx + maxR, y2:cy, stroke:'var(--line)', 'stroke-width':1 }));
+    svg.appendChild(svgEl('line', { x1:cx, y1:cy - maxR, x2:cx, y2:cy + maxR, stroke:'var(--line)', 'stroke-width':1 }));
+
+    /* cuadrantes — estilo de un solo tono, opacidad 0.52 */
+    ZONE_ORDER.forEach(function(key){
+      var zone = ZONES[key];
+      var score = scores[key];
+      var r = (score / 24) * maxR;
+      svg.appendChild(svgEl('path', {
+        d: sectorPath(cx, cy, r, zone.angleStart, zone.angleEnd),
+        fill: 'var(--orange)',
+        'fill-opacity': 0.52,
+        stroke: 'var(--orange)',
+        'stroke-width': 1.5
+      }));
+    });
+
+    svg.appendChild(svgEl('circle', { cx:cx, cy:cy, r:4, fill:'var(--navy)' }));
+
+    /* etiquetas de zona y puntaje fuera del círculo */
+    var labelR = maxR + 34;
+    ZONE_ORDER.forEach(function(key){
+      var zone = ZONES[key];
+      var mid = (zone.angleStart + zone.angleEnd) / 2;
+      var pos = polar(cx, cy, labelR, mid);
+      var anchor = pos.x < cx - 4 ? 'end' : pos.x > cx + 4 ? 'start' : 'middle';
+      var t1 = svgEl('text', { x:pos.x, y:pos.y - 4, 'text-anchor':anchor, 'font-family':'Bricolage Grotesque, sans-serif', 'font-weight':700, 'font-size':13, fill:'var(--navy)' });
+      t1.textContent = zone.label;
+      var t2 = svgEl('text', { x:pos.x, y:pos.y + 11, 'text-anchor':anchor, 'font-family':'DM Mono, monospace', 'font-size':11, fill:'var(--muted)' });
+      t2.textContent = scores[key] + '/24';
+      svg.appendChild(t1);
+      svg.appendChild(t2);
+    });
+  }
+
+  /* ---------- flujo de pantallas ---------- */
+
+  var screens = {
+    portada: document.getElementById('screen-portada'),
+    cuestionario: document.getElementById('screen-cuestionario'),
+    transicion: document.getElementById('screen-transicion'),
+    resultado: document.getElementById('screen-resultado')
+  };
+
+  function showScreen(name){
+    Object.keys(screens).forEach(function(key){
+      screens[key].classList.toggle('active', key === name);
+    });
+  }
+
+  var currentIndex = 0;
+  var answers = {};
+
+  function renderQuestion(){
+    var q = QUESTIONS[currentIndex];
+    document.getElementById('question-text').textContent = q.text;
+    document.getElementById('progress-label').textContent = 'Pregunta ' + (currentIndex + 1) + ' de ' + QUESTIONS.length;
+    document.getElementById('progress-fill').style.width = Math.round((currentIndex / QUESTIONS.length) * 100) + '%';
+  }
+
+  function resetQuiz(){
+    currentIndex = 0;
+    answers = {};
+    renderQuestion();
+    showScreen('portada');
+  }
+
+  document.getElementById('btn-empezar').addEventListener('click', function(){
+    renderQuestion();
+    showScreen('cuestionario');
+  });
+
+  document.getElementById('options').addEventListener('click', function(e){
+    var btn = e.target.closest('.option');
+    if (!btn) return;
+    answers[currentIndex] = parseInt(btn.dataset.value, 10);
+    currentIndex++;
+
+    if (currentIndex < QUESTIONS.length){
+      renderQuestion();
+      return;
+    }
+
+    document.getElementById('progress-fill').style.width = '100%';
+    showScreen('transicion');
+    var result = computeResult(answers);
+    setTimeout(function(){
+      renderResult(result);
+      showScreen('resultado');
+    }, 1200);
+  });
+
+  document.getElementById('btn-reiniciar').addEventListener('click', resetQuiz);
+
+  renderQuestion();
+})();
+</script>
+
+</body>
+</html>
